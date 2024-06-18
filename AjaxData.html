@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DataAjax</title>
+</head>
+<body>
+    <h1>Ajax example</h1>
+    <button onclick="ShowData1">Data1</button>
+    <button onclick="ShowData2">Data2</button>
+    <table id="data">
+        <tbody id="data"></tbody>
+    </table>
+    <script>
+        function ShowData1(){
+            var obj= new XMLHttpRequest();
+            obj.onreadystatechange=function(){
+                var dtable= document.getElementById("data");
+                dtable.innerHTML="";
+                if(this.readyState==4 && this.status==200){
+                    try{
+                        var data=JSON.parse(this.responseText);
+                        data.foeEach(function(d){
+                            let row=docuement.createElement("tr");
+                            for(var key in d){
+                                let col=document.createElement("td");
+                                let t=document.createTextNode(d[key]);
+                                col.appendChild(t)
+                                row.appendChild(col);
+                            }
+                            dtable.appendChild(row);
+                        });
+                    }
+                    catch(execption){
+                        alert(exception.message);
+                    }
+                }
+            };
+            obj.open("GET","https://seemakumari01012006.github.io/AjaxData/",true)
+            obj.send();
+        }
+
+        function ShowData2(){
+            var obj=new XMLHttpRequest();
+            obj.onreadystatechange=function(){
+                
+            }
+        }
+    </script>
+</body>
+</html>
